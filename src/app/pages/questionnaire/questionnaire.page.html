@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title
+      size="small">
+      {{questionnaire?.questionnaire?.name}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content
+  class="ion-padding">
+
+  <div #box
+    class="ion-text-center">
+    <strong>{{currentQuestionIndex+1}}/{{questionnaire?.questionnaire?.questions?.length}}</strong>
+
+    <app-question
+      [question]="questionnaire?.questionnaire?.questions[currentQuestionIndex]">
+    </app-question>
+  </div>
+
+
+
+
+
+</ion-content>
+<ion-footer collapse="fade" class="ion-no-border" >
+  <ion-toolbar >
+    <ion-button
+      fill="clear"
+      slot="end"
+      [disabled]="!hasNextQuestion()"
+      (click)="nextQuestion()">
+      <ion-icon
+        slot="end"
+        name="chevron-forward-outline">
+      </ion-icon>
+      Next
+    </ion-button>
+    <ion-button
+      fill="clear"
+      slot="start"
+      [disabled]="!hasPreviousQuestion()"
+      (click)="previousQuestion()">
+      <ion-icon
+        slot="start"
+        name="chevron-back-outline">
+      </ion-icon>
+      Prev
+    </ion-button>
+  </ion-toolbar>
+
+</ion-footer>

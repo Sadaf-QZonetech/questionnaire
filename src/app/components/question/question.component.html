@@ -1,0 +1,59 @@
+ <ion-list>
+   <ion-list-header>
+     <ion-label>
+       <strong>{{question?.headline}}</strong>
+       <p>
+         {{question?.description}}
+       </p>
+     </ion-label>
+   </ion-list-header>
+
+
+   <ng-container
+     *ngIf="question?.question_type ==='text'; else multipleChoiceQuestion">
+
+     <ion-item>
+      <ion-label position="floating">Your Answer</ion-label>
+      <ion-input [(ngModel)]="question.answer"></ion-input>
+    </ion-item>
+  </ng-container>
+
+   <ng-template
+     #multipleChoiceQuestion>
+
+     <ng-container
+       *ngIf="question?.multiple ==='true'; else elseTemplate">
+       <ion-item
+         *ngFor="let choice of question?.choices">
+         <ion-label>
+           {{choice.label}}
+         </ion-label>
+         <ion-checkbox
+           [(ngModel)]="choice.selected">
+         </ion-checkbox>
+       </ion-item>
+     </ng-container>
+
+     <ng-template
+       #elseTemplate>
+       <ion-radio-group
+         [allowEmptySelection]="!question?.required"
+         (ionChange)="radioGroupChange($event)"
+         [(ngModel)]="question.answer"
+         *ngIf="question?.multiple ==='false'">
+
+         <ion-item
+           *ngFor="let choice of question?.choices">
+           <ion-label>
+             {{choice.label}}
+           </ion-label>
+           <ion-radio
+             slot="start"
+             [value]="choice">
+           </ion-radio>
+         </ion-item>
+       </ion-radio-group>
+     </ng-template>
+   </ng-template>
+ </ion-list>
+
